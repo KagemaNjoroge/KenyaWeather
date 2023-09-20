@@ -1,5 +1,7 @@
 # Weather App
 
+A weather app for minialists with deadlines!
+
 ## Description
 
 This application consists of a django backend and a flutter frontend. The backend is a REST API that provides weather data for a given city. The frontend is a mobile application that displays the weather data.
@@ -31,4 +33,7 @@ The API has two endpoints:
 
 ## Screenshots
 
-_Coming soon_
+![Kenya Meteorological Department Website](backend/api/utils/screenshots/img.png)
+![Kenya Meteorological Department Website](backend/api/utils/screenshots/img2.png)
+![Kenya Meteorological Department Website](backend/api/utils/screenshots/img3.png)
+![Kenya Meteorological Department Website](backend/api/utils/screenshots/img4.png)
