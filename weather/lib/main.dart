@@ -50,13 +50,19 @@ class _WeatherPageState extends State<WeatherPage> {
   List<Weather> weather = [];
 
   Widget weatherCard(Weather weather) {
-    return Card(
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Column(
         children: [
           Text(weather.city),
           Text(weather.weatherDescription),
-          Text(weather.minTemp),
-          Text(weather.maxTemp),
+          Text("Min Temp: ${weather.minTemp}"),
+          Text("Max Temp: ${weather.maxTemp}"),
         ],
       ),
     );
