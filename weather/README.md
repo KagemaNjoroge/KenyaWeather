@@ -1,16 +1,13 @@
-# weather
+# Weather App
 
-A new Flutter project.
+## Description
 
-## Getting Started
+This application consists of a django backend and a flutter frontend. The backend is a REST API that provides weather data for a given city. The frontend is a mobile application that displays the weather data.
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+Navigate to the backend folder and run the following commands:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
