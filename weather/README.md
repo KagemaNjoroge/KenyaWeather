@@ -1,13 +1,66 @@
 # Weather App
 
-## Description
+A Flutter weather app that fetches weather data from a Django backend.
+It currently fetches weather data for the following Kenyan cities:
 
-This application consists of a django backend and a flutter frontend. The backend is a REST API that provides weather data for a given city. The frontend is a mobile application that displays the weather data.
+- Nairobi
+- Mombasa
+- Kisumu
+- Eldoret
+- Nakuru
+- Nyeri
+- Marsabit
+- Kakamega
+- Lamu
+- Garissa
+- Lodwar
+- Makindu
+- Malindi
+- Mandera
+- Voi
+- Moyale
+- Wajir
+- Kericho
+- Narok
+- Kitale
+- Meru
+- Kisii
+- Machakos
 
-## Installation
+## Getting Started
 
-Navigate to the backend folder and run the following commands:
+This is Flutter weather client of a backend running on a Django backend. The backend fetches weather by web scrapping [Kenya Meteorological Department](http://www.meteo.go.ke/) website.  
+The backend then exposes the weather data as a REST API. The Flutter client then consumes the API and displays the weather data.  
+The backend must be running for the Flutter client to work.  
+To run the backend:
+
+- Navigate to the `backend` directory
+- Run
 
 ```bash
-
+pip install -r requirements.txt # Install dependencies
+python manage.py runserver # Run the server
 ```
+
+To run the Flutter client:
+
+- Navigate to the weather directory
+- In the `lib/constants.dart` file, change the `weatherAPI` variable to the URL of the backend server
+
+```dart
+const String weatherAPI = "server_endpoint/all/";
+```
+
+- Get the dependencies by running `flutter pub get`
+
+```bash
+flutter pub get
+```
+
+- Run the app
+
+```bash
+flutter run
+```
+
+Hooraay! You have the app running.
