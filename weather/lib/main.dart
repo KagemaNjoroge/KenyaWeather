@@ -35,7 +35,7 @@ class _WeatherPageState extends State<WeatherPage> {
     try {
       var request = await http.get(weatherApi);
       if (request.statusCode == 200) {
-        // request successful
+        // Request successful
         var weather = request.body;
         var decodedWeather = jsonDecode(weather);
 
@@ -46,10 +46,12 @@ class _WeatherPageState extends State<WeatherPage> {
         }
         return weatherList;
       } else {
-        throw Exception("Error fetching weather");
+        // Return an error Future
+        return Future.error("Error fetching weather");
       }
     } catch (e) {
-      throw Exception(e);
+      // Return an error Future
+      return Future.error(e.toString());
     }
   }
 
