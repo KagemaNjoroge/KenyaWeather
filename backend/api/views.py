@@ -60,10 +60,10 @@ def all_weather(request: HttpRequest) -> JsonResponse:
                 weather = get_weather()
                 for weather_data in weather:
                     w = Weather(
-                        city=weather_data['city'],
+                        city=weather_data['town_name'],
                         max_temp=weather_data['max_temp'],
                         min_temp=weather_data['min_temp'],
-                        description=weather_data['description'],
+                        description=weather_data['weather_description'],
 
                     )
                     w.save()
@@ -72,10 +72,10 @@ def all_weather(request: HttpRequest) -> JsonResponse:
             weather = get_weather()
             for weather_data in weather:
                 w = Weather(
-                    city=weather_data['city'],
+                    city=weather_data['town_name'],
                     max_temp=weather_data['max_temp'],
                     min_temp=weather_data['min_temp'],
-                    description=weather_data['description'],
+                    description=weather_data['weather_description'],
 
                 )
                 w.save()
