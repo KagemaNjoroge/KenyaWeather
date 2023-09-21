@@ -32,18 +32,24 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   Future<List<Weather>> getWeather() async {
-    var request = await http.get(weatherApi);
-    if (request.statusCode == 200) {
-      var response = request.body;
-      var decodedData = jsonDecode(response);
-      if (decodedData is List) {
-        // If the decoded data is a list, convert it to a list of Weather objects
-        return decodedData.map((weather) => Weather.fromJson(weather)).toList();
+    try {
+      var request = await http.get(weatherApi);
+      if (request.statusCode == 200) {
+        // request successful
+        var weather = request.body;
+        var decodedWeather = jsonDecode(weather);
+
+        var weatherList = <Weather>[];
+        for (var w in decodedWeather) {
+          var weather = Weather.fromJson(w);
+          weatherList.add(weather);
+        }
+        return weatherList;
       } else {
-        throw Exception('Invalid data format');
+        throw Exception("Error fetching weather");
       }
-    } else {
-      throw Exception('Failed to load weather');
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -113,6 +119,26 @@ class _WeatherPageState extends State<WeatherPage> {
       //   },
       // )),
     );
+  }
+}
+
+class HomeTown {
+  final String townName;
+
+  HomeTown({
+    required this.townName,
+  });
+
+  factory HomeTown.fromJson(Map<String, dynamic> json) {
+    return HomeTown(
+      townName: json['town_name'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'townName': townName,
+    };
   }
 }
 
