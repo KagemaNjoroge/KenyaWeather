@@ -18,7 +18,7 @@ class WeatherApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Weather App',
       theme: ThemeData(useMaterial3: true),
-      home: const WeatherPage(),
+      home: const Home(),
     );
   }
 }
@@ -225,5 +225,44 @@ class Weather {
       'minTemp': minTemp,
       'maxTemp': maxTemp,
     };
+  }
+}
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appName),
+        centerTitle: true,
+      ),
+      // responsive body
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth >= 600) {
+            // large screen
+            return Container(
+              child: const Center(
+                child: Text(("Desktop/ Wide Screen")),
+              ),
+            );
+          } else {
+            // small screen, probably mobile
+            return Container(
+              child: const Center(
+                child: Text(("Mobile")),
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 }

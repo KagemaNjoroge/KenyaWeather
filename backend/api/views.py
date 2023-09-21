@@ -55,20 +55,34 @@ def all_weather(request: HttpRequest) -> JsonResponse:
             time_diff_between_now_and_last_fetch = time.time(
             ) - weather[0].date_time_fetched.timestamp()
             if time_diff_between_now_and_last_fetch > 10800:
+                # first try connecting to the web, if successful, clear the database and save the new data
+                try:
+                    weather = get_weather()
+                    for weather in weather:
+                        weather.delete()
 
-                for weather in weather:
-                    weather.delete()
-                weather = get_weather()
-                for weather_data in weather:
-                    w = Weather(
-                        city=weather_data['town_name'],
-                        max_temp=weather_data['max_temp'],
-                        min_temp=weather_data['min_temp'],
-                        description=weather_data['weather_description'],
+                    for weather_data in weather:
+                        w = Weather(
+                            city=weather_data['town_name'],
+                            max_temp=weather_data['max_temp'],
+                            min_temp=weather_data['min_temp'],
+                            description=weather_data['weather_description'],
 
-                    )
-                    w.save()
-                return JsonResponse(weather, safe=False)
+                        )
+                        w.save()
+                    return JsonResponse(weather, safe=False)
+                # if error connecting to web, return data in the database without clearing it
+                except:
+                    weather = Weather.objects.all()
+                    weather_data = []
+                    for w in weather:
+                        weather_data.append({
+                            'town_name': w.city,
+                            'max_temp': w.max_temp,
+                            'min_temp': w.min_temp,
+                            'weather_description': w.description,
+                        })
+                    return JsonResponse(weather_data, safe=False)
             else:  # return data in the database
 
                 weather = Weather.objects.all()

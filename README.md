@@ -37,3 +37,7 @@ The API has two endpoints:
 ![Kenya Meteorological Department Website](backend/api/utils/screenshots/img2.png)
 ![Kenya Meteorological Department Website](backend/api/utils/screenshots/img3.png)
 ![Kenya Meteorological Department Website](backend/api/utils/screenshots/img4.png)
+
+## Todo
+
+- Add weather forecast data
