@@ -36,14 +36,17 @@ class _WeatherPageState extends State<WeatherPage> {
       var request = await http.get(weatherApi);
       if (request.statusCode == 200) {
         // Request successful
-        var weather = request.body;
-        var decodedWeather = jsonDecode(weather);
+        var weather1 = request.body;
+        var decodedWeather = jsonDecode(weather1);
 
         var weatherList = <Weather>[];
         for (var w in decodedWeather) {
-          var weather = Weather.fromJson(w);
-          weatherList.add(weather);
+          var weather0 = Weather.fromJson(w);
+          weatherList.add(weather0);
         }
+        setState(() {
+          weather = weatherList;
+        });
         return weatherList;
       } else {
         // Return an error Future
@@ -59,6 +62,8 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Widget weatherCard(Weather weather) {
     return Container(
+      width: 100,
+      height: 100,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -101,8 +106,54 @@ class _WeatherPageState extends State<WeatherPage> {
               },
             );
           } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error loading weather'),
+            // an error occured
+
+            return Center(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Error fetching weather"),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Are you connected to the internet?",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // retry fetching weather
+                        setState(() {
+                          weather = [];
+                        });
+
+                        getWeather();
+                      },
+                      child: const Text("Retry"),
+                    )
+                  ],
+                ),
+              ),
             );
           }
           return const Center(
