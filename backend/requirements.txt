@@ -26,7 +26,7 @@ executing==1.2.0
 flet==0.10.0
 flet-core==0.10.0
 flet-runtime==0.10.0
-fonttools==4.42.0
+fonttools==4.43.0
 frozenlist==1.4.0
 funcy==2.0
 greenlet==2.0.2
