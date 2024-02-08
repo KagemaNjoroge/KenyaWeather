@@ -1,6 +1,6 @@
 # Weather App
 
-A weather app for minialists with deadlines!
+A Weather Data Scrapping Utility with an API
 
 ## Description
 
