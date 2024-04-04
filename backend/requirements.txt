@@ -68,7 +68,7 @@ parso==0.8.3
 pathspec==0.11.2
 pefile==2023.2.7
 pickleshare==0.7.5
-Pillow==10.2.0
+Pillow==10.3.0
 platformdirs==3.10.0
 plumbum==1.8.2
 prompt-toolkit==3.0.36
