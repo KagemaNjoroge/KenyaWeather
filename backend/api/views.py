@@ -1,3 +1,4 @@
+import re
 import stat
 from rest_framework.request import Request
 from .utils.scrapper import get_weather
@@ -80,8 +81,11 @@ def all_weather(request):
 def get_weather_for_specific_city(request: Request):
     query_city = request.query_params.get("city", None)
     if query_city:
-        weather = Weather.objects.filter(city__iexact=query_city)
-        serializer = WeatherSerializer(weather, many=True)
-        return Response(serializer.data)
+        weather = Weather.objects.filter(city=query_city)
+        if weather:
+            serializer = WeatherSerializer(weather.first())
+            return Response(serializer.data)
+        return Response({"error": "City not found"}, status=404)
+
     else:
         return Response({"error": "Please provide a city name"}, status=400)
