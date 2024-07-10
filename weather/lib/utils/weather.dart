@@ -7,7 +7,7 @@ import '../models/weather.dart';
 
 Future<List<Weather>> getWeather() async {
   try {
-    var request = await http.get(weatherApi);
+    var request = await http.get(Uri.parse(weatherApi));
     if (request.statusCode == 200) {
       // Request successful
       var weather1 = request.body;
@@ -20,6 +20,27 @@ Future<List<Weather>> getWeather() async {
       }
 
       return weatherList;
+    } else {
+      // Return an error Future
+      return Future.error("Error fetching weather");
+    }
+  } catch (e) {
+    // Return an error Future
+    return Future.error(e.toString());
+  }
+}
+
+Future<Weather> getSpecificWeather(String city) async {
+  try {
+    var request = await http.get(Uri.parse("$seachWeather?city=$city"));
+    if (request.statusCode == 200) {
+      // Request successful
+      var weather1 = request.body;
+      var decodedWeather = jsonDecode(weather1);
+
+      var weather0 = Weather.fromJson(decodedWeather);
+
+      return weather0;
     } else {
       // Return an error Future
       return Future.error("Error fetching weather");
