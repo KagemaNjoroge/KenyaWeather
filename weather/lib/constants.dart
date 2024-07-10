@@ -1,2 +1,2 @@
-Uri weatherApi = Uri.parse('http://localhost:8000/all/');
-String appName = 'Weather';
+String weatherApi = 'http://localhost:8000/all/';
+String seachWeather = "http://localhost:8000/specific/";
