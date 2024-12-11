@@ -9,7 +9,7 @@ SECRET_KEY = "django-insecure-1cn0^snwx#+t%kkaaz_5t72&h3k!&g^m2tnk81_on=0c=(-+02
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "drf_yasg",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -92,3 +93,13 @@ STATIC_URL = "static/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# rest_framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+}
