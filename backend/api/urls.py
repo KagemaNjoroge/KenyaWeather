@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import all_weather, get_weather_for_specific_city
+from .views import WeatherList, TownsList
+
+
+app_name = "api"
 
 urlpatterns = [
-    path("all/", all_weather, name="all_weather"),
-    path(
-        "specific/", get_weather_for_specific_city, name="get_weather_for_specific_city"
-    ),
+    path("weather/", WeatherList.as_view(), name="weather_list"),
+    path("towns/", TownsList.as_view(), name="towns_list"),
 ]
