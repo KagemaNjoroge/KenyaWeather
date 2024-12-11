@@ -16,85 +16,6 @@ class _WeatherPageState extends State<WeatherPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController townController = TextEditingController();
 
-  Widget searchForm() {
-    return Form(
-      key: formKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextFormField(
-            controller: townController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Enter town name",
-              hintText: "e.g. Nairobi",
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Please enter a town name";
-              }
-              return null;
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              if (formKey.currentState!.validate()) {
-                try {
-                  var weather = await getSpecificWeather(townController.text);
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("Weather"),
-                        content: weatherCard(weather),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Close"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } catch (e) {
-                  print(e);
-                }
-              }
-            },
-            child: const Text("Search"),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget weatherCard(Weather weather) {
-    return Container(
-      width: 100,
-      height: 100,
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Text(weather.city),
-          Text(weather.weatherDescription),
-          Text("Min Temp: ${weather.minTemp}"),
-          Text("Max Temp: ${weather.maxTemp}"),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,8 +59,6 @@ class _WeatherPageState extends State<WeatherPage> {
               },
             );
           } else if (snapshot.hasError) {
-            // an error occured
-
             return Center(
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -154,7 +73,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.error),
+                        Icon(Icons.error, color: Colors.red),
                         SizedBox(
                           width: 10,
                         ),
@@ -181,6 +100,66 @@ class _WeatherPageState extends State<WeatherPage> {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+    );
+  }
+
+  Widget searchForm() {
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextFormField(
+            controller: townController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Enter town name",
+              hintText: "e.g. Nairobi",
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter a town name";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (formKey.currentState!.validate()) {
+                var town = townController.text;
+                var weather = await getWeather(town: town);
+
+                print(weather);
+              }
+            },
+            child: const Text("Search"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget weatherCard(Weather weather) {
+    return Container(
+      width: 100,
+      height: 100,
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Text(weather.city),
+          Text(weather.weatherDescription),
+          Text("Min Temp: ${weather.minTemp}"),
+          Text("Max Temp: ${weather.maxTemp}"),
+        ],
       ),
     );
   }
