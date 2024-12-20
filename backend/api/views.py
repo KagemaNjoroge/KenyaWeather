@@ -1,19 +1,8 @@
 from .utils.scrapper import get_weather
-from .serializers import SupportedTownsSerializer, WeatherSerializer
+from .serializers import WeatherSerializer
 from .models import Weather
 import time
 from rest_framework.generics import ListAPIView
-
-
-class TownsList(ListAPIView):
-    """
-    Returns a list of all towns/cities supported by the API
-    """
-
-    serializer_class = SupportedTownsSerializer
-
-    def get_queryset(self):
-        return Weather.objects.all().values("city").distinct()
 
 
 class WeatherList(ListAPIView):
